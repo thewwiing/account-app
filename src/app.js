@@ -1,8 +1,9 @@
 import React, {useState, useEffect} from "react";
 
 import {Accounts, Filter} from './containers';
+
 import Container from '@material-ui/core/Container';
-import Grid from '@material-ui/core/Grid';
+import Grid      from '@material-ui/core/Grid';
 
 import {accounts, currencies} from './shared/constants';
 
@@ -23,7 +24,11 @@ export default function App() {
         }
     };
 
+    const orderHandler = (e) => setOrder(e.target.value);
+
+
     useEffect(() => {
+        setOrder('');
         if (!filters.length) {
             setSet([...accounts]);
             return;
@@ -32,20 +37,17 @@ export default function App() {
         setSet([...tempSet]);
     }, [filters]);
 
-    // useEffect(() => {
-    //     if (!order) {
-    //         return;
-    //     }
-    //     let res = [];
-    //     if (order === 1) res = set.sort((a, b) => a['sum'] - b['sum']);
-    //     if (order === 2) res = set.sort((a, b) => b['sum'] - a['sum']);
-    //     setSet([...res]);
-    // }, [order]);
+    useEffect(() => {
+        if (!order) return;
 
-    const orderHandler = (e) => setOrder(e.target.value);
+        let res = [];
+        if (+order === 1) res = set.sort((a, b) => Number(a.sum) - Number(b.sum));
+        if (+order === 2) res = set.sort((a, b) => Number(b.sum) - Number(a.sum));
+        setSet([...res]);
+    }, [order]);
+
 
     const toggleNumberHiding = () => toggleHiding(!isHidden);
-
 
     return (
         <div className="app">
@@ -68,7 +70,6 @@ export default function App() {
                         set={set}
                     />
                 </Grid>
-
             </Container>
         </div>
     );
