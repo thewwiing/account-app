@@ -4,13 +4,14 @@ import {Accounts, Filter} from './containers';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 
-import {accounts, currencies} from './shared/helpers';
+import {accounts, currencies} from './shared/constants';
 
 
 export default function App() {
-    const [filters, setFilters] = useState([]);
-    const [order, setOrder]     = useState('');
-    const [set, setSet]         = useState(accounts);
+    const [isHidden, toggleHiding] = useState(false);
+    const [filters, setFilters]    = useState([]);
+    const [order, setOrder]        = useState('');
+    const [set, setSet]            = useState(accounts);
 
     const filterChangeHandler = (value) => {
         if (!filters.includes(value)) {
@@ -43,13 +44,14 @@ export default function App() {
 
     const orderHandler = (e) => setOrder(e.target.value);
 
+    const toggleNumberHiding = () => toggleHiding(!isHidden);
 
 
     return (
         <div className="app">
             <Container component='div' maxWidth='md'>
                 <Grid component='div'
-                      xs={6}
+                      xs={12}
                       item
                 >
                     <Filter
@@ -61,6 +63,8 @@ export default function App() {
                     />
 
                     <Accounts
+                        toggleHiding={toggleNumberHiding}
+                        isHidden={isHidden}
                         set={set}
                     />
                 </Grid>

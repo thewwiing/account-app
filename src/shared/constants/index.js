@@ -108,4 +108,4 @@ export const currencies = [
     {id: 14, value: "₤"},
     {id: 15, value: "$"},
     {id: 16, value: "€"},
-]
+];
