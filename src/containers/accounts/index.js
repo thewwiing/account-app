@@ -1,36 +1,42 @@
 import React from 'react';
 
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
+
+
+
 
 const Accounts = ({set}) => {
     return (
-        <table className='accounts'>
-            <thead>
-                <tr>
-                    <th>Номер счета</th>
-                    <th>Сумма</th>
-                    <th>Валюта</th>
-                </tr>
-            </thead>
-            <tbody>
-                {
-                    set.map(item => (
-                        <tr className='accounts__item'
-                            key={item['id']}
-                        >
-                            <th>
+        <TableContainer component={Paper}>
+            <Table size="small" aria-label="a dense table">
+
+                <TableHead>
+                    <TableRow>
+                        <TableCell>Номер счета</TableCell>
+                        <TableCell align="right">Сумма</TableCell>
+                        <TableCell align="right">Валюта</TableCell>
+                    </TableRow>
+                </TableHead>
+
+                <TableBody>
+                    {set.map((item) => (
+                        <TableRow key={item['id']}>
+                            <TableCell component="th" scope="row">
                                 {item['accountNumber']}
-                            </th>
-                            <th>
-                                {item['sum']}
-                            </th>
-                            <th>
-                                {item['currency']}
-                            </th>
-                        </tr>
-                    ))
-                }
-            </tbody>
-        </table>
+                            </TableCell>
+                            <TableCell align="right">{item['sum']}</TableCell>
+                            <TableCell align="right">{item['currency']}</TableCell>
+                        </TableRow>
+                    ))}
+                </TableBody>
+            </Table>
+        </TableContainer>
     )
 };
 
